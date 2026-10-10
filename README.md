@@ -22,3 +22,6 @@ A machine learning program that forecasts ATP singles match outcomes using histo
 ## WIP
 
 Random forest, log regression, web scraping from ATP for player data
+
+## Dataset
+Dataset taken from https://tennis-data.co.uk/data.php
