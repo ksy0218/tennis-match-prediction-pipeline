@@ -1,3 +1,5 @@
+import joblib
+
 from sklearn.model_selection import train_test_split
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
@@ -5,6 +7,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.ensemble import HistGradientBoostingClassifier
 from sklearn.metrics import classification_report, roc_auc_score
+
 
 
 def train_and_evaluate(df_clean):
@@ -36,7 +39,7 @@ def train_and_evaluate(df_clean):
             ('cat', cat_transformer, cat_cols)
         ])
 
-    # Build Pipeline and Train
+    # build pipeline and train
     model = Pipeline(steps=[
         ('preprocessor', preprocessor),
         ('classifier', HistGradientBoostingClassifier(random_state=42))
@@ -52,4 +55,8 @@ def train_and_evaluate(df_clean):
     print("\n--- ROC-AUC SCORE ---")
     print(f"Score: {roc_auc_score(y_test, probabilities):.3f}")
 
+    #saving the whole pipeline to a file so predictions don't require training on the dataset again
+    joblib.dump(model, 'model.pkl')
+
     return model
+
